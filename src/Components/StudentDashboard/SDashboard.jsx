@@ -21,7 +21,7 @@ const StudentDashboard = () => {
       setStudents(newStudents);
       const initialAttendance = {};
       timeSlots.forEach(slot => {
-        initialAttendance[slot] = new Array(newStudents.length).fill("");
+        initialAttendance[slot] = new Array(newStudents.length).fill(1); // Default to Present (1)
       });
       setAttendance(initialAttendance);
     } else {
@@ -30,17 +30,19 @@ const StudentDashboard = () => {
     }
   };
 
-  const handleAttendanceChange = (index, status) => {
+  const handleAttendanceChange = (index) => {
     setAttendance(prev => ({
       ...prev,
-      [selectedSlot]: prev[selectedSlot].map((value, i) => (i === index ? status : value))
+      [selectedSlot]: prev[selectedSlot].map((value, i) =>
+        i === index ? (value === 1 ? 0 : 1) : value // Toggle between 1 (Present) and 0 (Absent)
+      )
     }));
   };
 
   const handleMarkAll = (status) => {
     setAttendance(prev => ({
       ...prev,
-      [selectedSlot]: new Array(students.length).fill(status)
+      [selectedSlot]: new Array(students.length).fill(status) // Mark all as Present (1) or Absent (0)
     }));
   };
 
@@ -53,10 +55,13 @@ const StudentDashboard = () => {
     alert(`Attendance for ${selectedSlot} submitted successfully!`);
   };
 
+  // Calculate total present and absent students
+  const totalPresent = attendance[selectedSlot]?.filter(status => status === 1).length || 0;
+  const totalAbsent = attendance[selectedSlot]?.filter(status => status === 0).length || 0;
+
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Welcome, Class Representative!</h2>
-
       {!showAttendanceForm ? (
         <button className="btn-action" onClick={() => setShowAttendanceForm(true)}>
           Take Attendance
@@ -76,13 +81,11 @@ const StudentDashboard = () => {
                   min="1"
                 />
               </div>
-
               <button className="btn-action" onClick={handleGenerateCheckboxes}>
                 Generate Attendance List
               </button>
             </>
           ) : null}
-
           {students.length > 0 && (!submittedAttendance[selectedSlot] || isEditable) && (
             <div className="attendance-card">
               <h5>Select Time Slot:</h5>
@@ -96,68 +99,52 @@ const StudentDashboard = () => {
                 ))}
               </select>
 
-              <div className="button-group">
-                <button className="btn-present" onClick={() => handleMarkAll("Present")}>Mark All Present</button>
-                <button className="btn-absent" onClick={() => handleMarkAll("Absent")}>Mark All Absent</button>
-                <button className="btn-permission" onClick={() => handleMarkAll("Permission")}>Mark All Permission</button>
+              {/* Box for Mark All Buttons and Attendance Summary */}
+              <div className="mark-all-summary-box">
+                <div className="mark-all-buttons">
+                  <button className="btn-present" onClick={() => handleMarkAll(1)}>Mark All Present</button>
+                  <button className="btn-absent" onClick={() => handleMarkAll(0)}>Mark All Absent</button>
+                </div>
+                <div className="student-buttons-container">
+                {students.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`student-toggle-button ${
+                      attendance[selectedSlot]?.[index] === 1 ? "present" : "absent"
+                    }`}
+                    onClick={() => handleAttendanceChange(index)}
+                  >
+                    {index + 1} {/* Display only the number */}
+                  </button>
+                ))}
+              </div>
+                <div className="attendance-summary">
+                  <p>Total Present: <span className="status-present">{totalPresent}</span></p>
+                  <p>Total Absent: <span className="status-absent">{totalAbsent}</span></p>
+                </div>
               </div>
 
-              {students.map((student, index) => (
-                <div key={index} className="attendance-row">
-                  <span className="student-name">{student}</span>
-                  <div className="checkbox-group">
-                    <label className="checkbox-label present">
-                      <input
-                        type="checkbox"
-                        checked={attendance[selectedSlot]?.[index] === "Present"}
-                        onChange={() => handleAttendanceChange(index, "Present")}
-                      />
-                      Present
-                    </label>
-                    <label className="checkbox-label absent">
-                      <input
-                        type="checkbox"
-                        checked={attendance[selectedSlot]?.[index] === "Absent"}
-                        onChange={() => handleAttendanceChange(index, "Absent")}
-                      />
-                      Absent
-                    </label>
-                    <label className="checkbox-label permission">
-                      <input
-                        type="checkbox"
-                        checked={attendance[selectedSlot]?.[index] === "Permission"}
-                        onChange={() => handleAttendanceChange(index, "Permission")}
-                      />
-                      Permission
-                    </label>
-                  </div>
-                </div>
-              ))}
-
+              
               <button className="btn-submit" onClick={handleSubmitAttendance}>
                 Submit Attendance
               </button>
             </div>
           )}
-
           {/* Display Submitted Attendance for the Selected Time Slot */}
           {submittedAttendance[selectedSlot] && !isEditable && (
             <div className="submitted-attendance">
               <h3>Submitted Attendance for {selectedSlot}</h3>
-              {students.map((student, index) => {
-                const status = submittedAttendance[selectedSlot]?.[index] || "Not Marked";
+              {students.map((_, index) => {
+                const status = submittedAttendance[selectedSlot]?.[index];
                 let statusClass = "";
-                if (status === "Present") statusClass = "status-present";
-                else if (status === "Absent") statusClass = "status-absent";
-                else if (status === "Permission") statusClass = "status-permission";
-
+                if (status === 1) statusClass = "status-present";
+                else if (status === 0) statusClass = "status-absent";
                 return (
                   <p key={index} className={`submitted-student ${statusClass}`}>
-                    {student}: {status}
+                    {index + 1}: {status === 1 ? "Present" : "Absent"}
                   </p>
                 );
               })}
-
               <button className="btn-update" onClick={() => setIsEditable(true)}>
                 Update Attendance
               </button>

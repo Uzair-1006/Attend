@@ -1,203 +1,118 @@
 .dashboard-container {
-    text-align: center;
-    margin-top: 20px;
-    margin-left: 20px;
-  }
-  
-  .dashboard-title {
-    color: #007bff;
-  }
-  
-  .btn-action {
-    background-color: #ffcc00;
-    color: black;
-    border: none;
-    padding: 10px;
-    width: 90%;
-    max-width: 300px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  .attendance-form {
-    margin-top: 20px;
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers items horizontally */
-    justify-content: center; /* Centers items vertically */
-    width: 100%;
-    text-align: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
-  
-  .input-box {
-    width: 90%;
-    max-width: 250px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.dashboard-title {
+  color: #007bff;
+}
+
+.btn-action {
+  background-color: #ffcc00;
+  color: black;
+  border: none;
+  padding: 10px;
+  width: 90%;
+  max-width: 300px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.attendance-form {
+  margin-top: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally */
+  justify-content: center; /* Centers items vertically */
+  width: 100%;
+  text-align: center;
+}
+
+.input-box {
+  width: 90%;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.attendance-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.mark-all-buttons {
+  display: flex;
+  justify-content: center; /* Centers the "Mark All" buttons */
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.btn-present,
+.btn-absent {
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-absent {
+  background-color: red;
+}
+
+/* Default Styles */
+.student-buttons-container {
+  display: flex;
+  flex-wrap: wrap; /* Ensures buttons wrap into multiple rows */
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Centers the buttons horizontally */
+  margin-top: 10px; /* Add spacing from the top */
+}
+
+.student-toggle-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  flex: 1 1 calc(6.66% - 20px); /* Each button takes up ~6.66% of the container width (15 buttons per row) */
+  box-sizing: border-box;
+  min-width: 80px; /* Prevents buttons from shrinking too much */
+}
+
+.student-toggle-button.present {
+  background-color: green;
+}
+
+.student-toggle-button.absent {
+  background-color: red;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+  .student-toggle-button {
+    flex: 1 1 calc(14.28% - 20px); /* Each button takes up ~14.28% of the container width (7 buttons per row) */
+    min-width: 60px; /* Adjust minimum width for smaller screens */
   }
-  
-  .attendance-card {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-  }
-  
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .btn-present {
-    background-color: green;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .btn-absent {
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .btn-permission {
-    background-color: orange;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .attendance-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .student-name {
-    font-weight: bold;
-  }
-  
-  .radio-group {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .radio-label {
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .radio-label input {
-    margin-right: 5px;
-  }
-  
-  .present {
-    color: green;
-  }
-  
-  .absent {
-    color: red;
-  }
-  
-  .permission {
-    color: orange;
-  }
-  
-  .btn-submit {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    width: 90%;
-    max-width: 300px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .attendance-summary {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-  }
-  
-  .summary-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .summary-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .summary-item.present {
-    color: green;
-  }
-  
-  .summary-item.absent {
-    color: red;
-  }
-  
-  .summary-item.permission {
-    color: orange;
-  }
-  .checkbox-group {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Adjust spacing between checkboxes */
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .present input {
-    accent-color: green;
-  }
-  
-  .absent input {
-    accent-color: red;
-  }
-  
-  .permission input {
-    accent-color: orange;
-  }
-  .time-slot-selector {
-    width: 90%;
-    max-width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 10px; /* Added margin */
-    margin-bottom: 15px; /* Added margin */
-    font-size: 16px;
-    cursor: pointer;
 }
 .status-present {
   color: green;
@@ -206,11 +121,6 @@
 
 .status-absent {
   color: red;
-  font-weight: bold;
-}
-
-.status-permission {
-  color: orange;
   font-weight: bold;
 }
 
@@ -240,4 +150,59 @@
 
 .btn-update:hover {
   background-color: #0056b3;
+}
+
+
+.btn-submit {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  padding: 12px 20px; /* Increased padding for better size */
+  font-size: 16px;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  margin-top: 20px; /* Added margin-top for spacing */
+  width: 90%; /* Full width for consistency */
+  max-width: 300px; /* Limit maximum width */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-submit:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+.mark-all-summary-box {
+  background-color: #f9f9f9; /* Light background color */
+  border: 3px solid black; /* Border for the box */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Padding inside the box */
+  margin-top: 15px; /* Space above the box */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 10px; /* Space between elements inside the box */
+}
+
+.mark-all-buttons {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 10px; /* Space between buttons */
+}
+
+.attendance-summary {
+  font-size: 16px;
+  text-align: center;
+}
+
+.attendance-summary p {
+  margin: 5px 0;
+}
+
+.status-present {
+  color: green;
+  font-weight: bold;
+}
+
+.status-absent {
+  color: red;
+  font-weight: bold;
 }

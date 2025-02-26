@@ -9,7 +9,26 @@
     background: linear-gradient(to right, #f4f4f4, #e3e3e3);
     width: 100%;
 }
-
+.flex{
+    display: flex;
+}
+.square-icon-box {
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #007bff; /* Blue border */
+    background-color: #f8f9fa; /* Light background */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+  }
+  
+  .square-icon-box i {
+    font-size: 30px;
+    color: #007bff;
+  }
+  
 /* Steps Section */
 .how-it-works {
     margin-top: 40px;

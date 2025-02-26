@@ -6,7 +6,7 @@ const NavBar = () => {
   const location = useLocation();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm mt-4">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div className="container">
         {/* Brand Logo */}
         <a className="navbar-brand fw-bold text-primary" href="#">
@@ -15,7 +15,7 @@ const NavBar = () => {
 
         {/* Navbar Toggle Button (for Mobile View) */}
         <button
-          className="navbar-toggler "
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -26,9 +26,10 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Navbar Links - Centered Buttons */}
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-          <div className="d-flex justify-content-center w-100">
+        {/* Navbar Links */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          {/* Buttons pushed to the right using ms-auto */}
+          <div className="ms-auto d-flex">
             <button
               className={`btn mx-2 ${
                 location.pathname === "/student" ? "btn-primary" : "btn-outline-primary"

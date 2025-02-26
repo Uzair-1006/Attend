@@ -8,7 +8,7 @@ const Home = () => {
     <section className="home-container">
       <div className="content">
         <div className="flex">
-          <div className="icon-box">
+          <div className="square-icon-box">
             <i className="bi bi-person-check"></i>
           </div>
           <h1 className="title">Attendance Visualizer</h1>
