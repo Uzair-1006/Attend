@@ -12,6 +12,8 @@ const StudentDashboard = () => {
   const [students, setStudents] = useState([]);
   const [attendance, setAttendance] = useState({});
   const [selectedSlot, setSelectedSlot] = useState(timeSlots[0]);
+  const [submittedAttendance, setSubmittedAttendance] = useState({});
+  const [isEditable, setIsEditable] = useState(false);
 
   const handleGenerateCheckboxes = () => {
     if (numStudents > 0) {
@@ -42,6 +44,15 @@ const StudentDashboard = () => {
     }));
   };
 
+  const handleSubmitAttendance = () => {
+    setSubmittedAttendance(prev => ({
+      ...prev,
+      [selectedSlot]: [...attendance[selectedSlot]]
+    }));
+    setIsEditable(false);
+    alert(`Attendance for ${selectedSlot} submitted successfully!`);
+  };
+
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Welcome, Class Representative!</h2>
@@ -52,23 +63,27 @@ const StudentDashboard = () => {
         </button>
       ) : (
         <div className="attendance-form">
-          <div className="input-group">
-            <label>Enter Number of Students:</label>
-            <input
-              type="number"
-              className="input-box"
-              placeholder="Enter total students"
-              value={numStudents}
-              onChange={(e) => setNumStudents(e.target.value)}
-              min="1"
-            />
-          </div>
+          {!submittedAttendance[selectedSlot] ? (
+            <>
+              <div className="input-group">
+                <label>Enter Number of Students:</label>
+                <input
+                  type="number"
+                  className="input-box"
+                  placeholder="Enter total students"
+                  value={numStudents}
+                  onChange={(e) => setNumStudents(e.target.value)}
+                  min="1"
+                />
+              </div>
 
-          <button className="btn-action" onClick={handleGenerateCheckboxes}>
-            Generate Attendance List
-          </button>
+              <button className="btn-action" onClick={handleGenerateCheckboxes}>
+                Generate Attendance List
+              </button>
+            </>
+          ) : null}
 
-          {students.length > 0 && (
+          {students.length > 0 && (!submittedAttendance[selectedSlot] || isEditable) && (
             <div className="attendance-card">
               <h5>Select Time Slot:</h5>
               <select
@@ -118,6 +133,34 @@ const StudentDashboard = () => {
                   </div>
                 </div>
               ))}
+
+              <button className="btn-submit" onClick={handleSubmitAttendance}>
+                Submit Attendance
+              </button>
+            </div>
+          )}
+
+          {/* Display Submitted Attendance for the Selected Time Slot */}
+          {submittedAttendance[selectedSlot] && !isEditable && (
+            <div className="submitted-attendance">
+              <h3>Submitted Attendance for {selectedSlot}</h3>
+              {students.map((student, index) => {
+                const status = submittedAttendance[selectedSlot]?.[index] || "Not Marked";
+                let statusClass = "";
+                if (status === "Present") statusClass = "status-present";
+                else if (status === "Absent") statusClass = "status-absent";
+                else if (status === "Permission") statusClass = "status-permission";
+
+                return (
+                  <p key={index} className={`submitted-student ${statusClass}`}>
+                    {student}: {status}
+                  </p>
+                );
+              })}
+
+              <button className="btn-update" onClick={() => setIsEditable(true)}>
+                Update Attendance
+              </button>
             </div>
           )}
         </div>
