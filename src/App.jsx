@@ -1,23 +1,25 @@
 import React from "react";
-import NavBar from "./Components/Navbar";
+import NavBar from "./Components/NavBar/Navbar";
+import HomePage from "./pages/HomePage"; // Import the HomePage component
 import StudentPage from "./pages/StudentPage";
 import FacultyPage from "./pages/FacultyPage";
-import { Route, Routes } from "react-router-dom";
 import StudentDashboard from "./pages/StudentDashboard";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="container p-0">
+    <div className="w-screen min-h-screen overflow-x-hidden">
       <NavBar />
-      <div className="mt-50"> {/* Adjust margin-top here */}
+      <div>
         <Routes>
+          <Route path="/" element={<HomePage />} /> {/* Home Page Route */}
           <Route path="/student" element={<StudentPage />} />
           <Route path="/faculty" element={<FacultyPage />} />
           <Route path="/dashboard" element={<StudentDashboard />} />
-
         </Routes>
       </div>
     </div>
   );
 }
+
 export default App;
